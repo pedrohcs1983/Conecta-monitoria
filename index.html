@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0B1E3F">
+<title>Conecta Monitoria • Instituto Vértice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--abissal:#0B1E3F;--cobalto:#1D4ED8;--ciano:#06B6D4;--violeta:#6D28D9;--turquesa:#0F766E;--gelo:#F1F6FB;--linha:#D6E2EF;--mut:#3E5573}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--gelo);color:var(--abissal);line-height:1.5}
+h1,h2,h3,.logo{font-family:Sora,Inter,sans-serif;letter-spacing:-.02em}
+h1{font-size:1.6rem;margin:.3em 0 .6em;font-weight:800}
+h2{font-size:1.15rem;margin:1.4em 0 .6em;display:flex;align-items:center;gap:8px}
+h2::before{content:"";width:10px;height:10px;background:var(--ciano);transform:rotate(45deg);flex:none}
+h3{margin:0;font-size:1.05rem}
+:focus-visible{outline:3px solid var(--ciano);outline-offset:2px}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1040px;margin:0 auto;padding:16px}
+.top{background:var(--abissal);position:sticky;top:0;z-index:20;box-shadow:0 2px 0 var(--ciano)}
+.top .wrap{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 16px}
+.logo{background:none;border:0;color:#fff;display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;text-align:left;line-height:1.15}
+.logo small{display:block;font-family:Inter;font-weight:500;font-size:11px;color:#9FE7F5;letter-spacing:.12em;text-transform:uppercase}
+nav{display:flex;flex-wrap:wrap;gap:4px}
+.nav{background:none;border:0;padding:8px 12px;border-radius:6px;font-size:14px;color:#D4E4F7}
+.nav:hover{background:#ffffff14;color:#fff}
+.nav[aria-current]{background:var(--cobalto);color:#fff;font-weight:600}
+.nav[data-a=logout]{color:#FCA5A5!important}
+.card{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:18px;box-shadow:0 1px 2px #0B1E3F0D;transition:box-shadow .2s,transform .2s;color:var(--abissal)}
+button.card:hover,article.card:hover{box-shadow:0 8px 24px #1D4ED81F;transform:translateY(-2px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:6px;padding:9px 16px;font-size:14px;font-weight:600;min-height:40px;border:1px solid transparent;transition:filter .15s}
+.btn:hover:not(:disabled){filter:brightness(1.1)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.p{background:var(--cobalto);color:#fff}
+.s{background:#fff;border-color:#9DB2CC;color:var(--abissal)}
+.d{background:#B91C1C;color:#fff}
+.g{background:var(--turquesa);color:#fff}
+.y{background:var(--ciano);color:var(--abissal)}
+.link{background:none;border:0;padding:0;color:var(--cobalto);text-decoration:underline;text-underline-offset:3px}
+.in{width:100%;border:1px solid #9DB2CC;border-radius:6px;padding:9px 11px;font:inherit;background:#fff;color:var(--abissal)}
+.in:focus{border-color:var(--cobalto)}
+label.f{display:block}label.f>span{display:block;font-size:14px;font-weight:600;margin-bottom:4px}
+.hint{font-size:12px;color:var(--mut)}.mut{color:var(--mut);font-size:14px;margin:4px 0}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.sb{justify-content:space-between}
+.badge{border:1px solid;border-radius:4px;padding:2px 10px;font-size:12px;font-weight:600}
+.b-pendente{background:#FEF3C7;color:#78350F}.b-aceita{background:#CCFBF1;color:#134E4A}.b-recusada{background:#FEE2E2;color:#7F1D1D}
+.b-cancelada{background:#E2E8F0;color:#1E293B}.b-concluida{background:#EDE9FE;color:#4C1D95}
+.chip{font-size:12px;background:#E0F2FE;border:1px solid #BAE6FD;color:#0C4A6E;border-radius:4px;padding:2px 8px}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;border-bottom:2px solid var(--linha);margin-bottom:16px}
+.tab{background:none;border:0;padding:9px 14px;border-radius:6px 6px 0 0;font-size:14px;color:var(--mut)}
+.tab[aria-selected=true]{background:var(--violeta);color:#fff;font-weight:600}
+.hero{position:relative;overflow:hidden;color:#fff;border-radius:14px;padding:40px 28px;
+  background:radial-gradient(circle at 90% 10%,#06B6D455 0,transparent 40%),radial-gradient(circle at 75% 100%,#6D28D966 0,transparent 45%),linear-gradient(135deg,#0B1E3F,#13306B)}
+.hero::after{content:"";position:absolute;right:-40px;top:-40px;width:220px;height:220px;border:2px solid #06B6D466;transform:rotate(45deg)}
+.hero>*{position:relative;z-index:1}
+.hero p{color:#CFE3FA!important}
+.empty{text-align:center;border:2px dashed #B7CBE0;border-radius:10px;padding:26px;color:var(--mut);background:#fff}
+.alert{background:#FEF2F2;border:1px solid #DC2626;color:#7F1D1D;border-radius:6px;padding:10px;font-size:14px}
+.info{background:#E0F2FE;border:1px solid #38BDF8;color:#0C4A6E;border-radius:6px;padding:10px;font-size:13px}
+.mbg{position:fixed;inset:0;background:#0B1E3FB3;backdrop-filter:blur(3px);z-index:40;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{background:#fff;border-radius:12px;padding:22px;width:100%;max-width:460px;max-height:90vh;overflow:auto;border-top:5px solid var(--ciano)}
+#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:60;width:92%;max-width:440px}
+.toast{padding:12px 16px;border-radius:8px;color:#fff;font-weight:500;box-shadow:0 8px 24px #0B1E3F40}
+.pick{border:1px solid #9DB2CC;background:#fff;border-radius:6px;padding:8px 10px;text-align:left;font-size:14px;color:var(--abissal)}
+.pick:hover:not(:disabled){border-color:var(--cobalto)}
+.pick[aria-pressed=true]{background:var(--cobalto);border-color:var(--cobalto);color:#fff}
+.pick:disabled{opacity:.5;cursor:not-allowed}
+.unread{border-left:5px solid var(--ciano)}
+ul.clean{list-style:none;padding:0;margin:0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:#E8F0F9;font-family:Sora,Inter,sans-serif;font-size:13px}
+th,td{text-align:left;padding:9px;border-bottom:1px solid var(--linha)}
+fieldset{border:1px solid var(--linha);border-radius:8px}
+footer.wrap{margin-top:32px;border-top:1px solid var(--linha);padding-top:14px}
+.gbtn{display:flex;gap:10px;align-items:center;justify-content:center;width:100%;min-height:42px;background:#fff;border:1px solid #9DB2CC;border-radius:6px;font-weight:600;color:var(--abissal)}
+.gbtn:hover{border-color:var(--cobalto);box-shadow:0 2px 8px #1D4ED81F}
+.or{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:13px;margin:4px 0}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--linha)}
+.area{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--violeta)}
+.areaCard{text-align:left;border-top:4px solid var(--ciano)}
+</style>
+</head>
+<body>
+<div id="app"></div><div id="toast" aria-live="polite"></div>
+<script>
+/* ========== UTILITÁRIOS ========== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0'),now=()=>new Date().toISOString();
+const today=()=>{const t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate())};
+const addD=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const pD=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const tmin=t=>{const[h,m]=t.split(':').map(Number);return h*60+m},tstr=m=>`${pad(Math.floor(m/60))}:${pad(m%60)}`;
+const fD=s=>pD(s).toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'});
+const fDT=i=>new Date(i).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const byId=(a,i)=>a.find(x=>x.id===+i);
+const DAYS=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+const ST={pendente:'⏳ Pendente',aceita:'✔ Aceita',recusada:'✖ Recusada',cancelada:'⊘ Cancelada',concluida:'★ Concluída'};
+const ACT=['pendente','aceita'],CANCEL_H=2;
+const LOGO=`<svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 37 20 20 37 3 20Z" fill="none" stroke="#06B6D4" stroke-width="3"/><path d="M12 14 20 28 28 14" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Conecta Monitoria<small>Instituto Vértice</small></span>`;
+
+/* ========== CONFIGURAÇÃO ========== */
+const KEY='conecta_monitoria_v3';let db;
+// Client ID OAuth do Google: cole aqui OU configure em Administração › Integrações
+const GOOGLE_CLIENT_ID=localStorage.getItem('gcid')||'';
+const AREAS=['Exatas','Ciências da Natureza','Ciências Humanas e Sociais','Linguagens','Tecnologia'];
+const areaOf=o=>byId(db.subjects,o.subjectId)?.area||'';
+
+/* ========== BANCO (localStorage) ========== */
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}};
+const nid=()=>++db.seq;
+const subj=i=>byId(db.subjects,i)?.name||'—';
+function newReq(o,s,sid,date,msg){
+  const t=now(),r={id:nid(),offerId:o.id,subject:subj(o.subjectId),monitorId:o.monitorId,studentId:sid,slotId:s.id,date,start:s.start,end:endOf(o,s),format:o.format,place:o.place,msg,status:'pendente',log:[{s:'pendente',at:t}],createdAt:t,updatedAt:t};
+  db.requests.push(r);return r;
+}
+function seed(){
+  db={seq:1,users:[],subjects:[],offers:[],requests:[],reviews:[],notifs:[],reports:[],outbox:[],session:null};
+  const t=now();
+  const SUBJ={'Exatas':['Matemática','Física','Estatística'],'Ciências da Natureza':['Química','Biologia'],
+    'Ciências Humanas e Sociais':['História','Geografia','Filosofia','Sociologia'],'Linguagens':['Português','Redação','Inglês','Espanhol'],'Tecnologia':['Programação']};
+  Object.entries(SUBJ).forEach(([a,l])=>l.forEach(n=>db.subjects.push({id:nid(),name:n,area:a})));
+  const sb=n=>db.subjects.find(s=>s.name===n).id;
+  const mu=(name,email,pw,turma,roles,admin=false)=>{const u={id:nid(),name,email,pw,turma,roles,admin,active:true,createdAt:t,updatedAt:t};db.users.push(u);return u};
+  mu('Coordenação Escolar','admin@escola.exemplo','admin123','—',[],true);
+  const ana=mu('Ana Souza','ana@escola.exemplo','ana123','3º Ano A',['monitor']);
+  const bru=mu('Bruno Lima','bruno@escola.exemplo','bruno123','1º Ano B',['aluno']);
+  const car=mu('Carla Mendes','carla@escola.exemplo','carla123','2º Ano C',['aluno','monitor']);
+  const die=mu('Diego Ramos','diego@escola.exemplo','diego123','3º Ano B',['monitor']);
+  const eli=mu('Elisa Prado','elisa@escola.exemplo','elisa123','3º Ano C',['monitor']);
+  const fel=mu('Felipe Nunes','felipe@escola.exemplo','felipe123','2º Ano A',['aluno','monitor']);
+  const gab=mu('Gabriela Rocha','gabriela@escola.exemplo','gabi123','3º Ano A',['monitor']);
+  const mo=(m,s,desc,sl,dur,format,place,max,notes='')=>{const o={id:nid(),monitorId:m.id,subjectId:sb(s),desc,slots:sl.map(([day,start])=>({id:nid(),day,start})),dur,format,place,max,notes,active:true,createdAt:t,updatedAt:t};db.offers.push(o);return o};
+  const o1=mo(ana,'Matemática','Funções, geometria analítica e revisão para o ENEM.',[[2,'14:00'],[4,'15:00']],60,'presencial','Biblioteca – sala 2',3,'Traga caderno.');
+  const o2=mo(car,'Física','Cinemática e leis de Newton com exercícios.',[[1,'13:30'],[3,'14:00']],45,'online','https://meet.exemplo/fisica',5);
+  mo(ana,'Estatística','Média, mediana, desvio-padrão e leitura de gráficos.',[[1,'16:00']],60,'presencial','Sala 14',4);
+  mo(die,'Química','Estequiometria, ligações químicas e tabela periódica.',[[2,'10:00'],[4,'10:00']],60,'presencial','Laboratório de Ciências',4,'Uso de jaleco recomendado.');
+  mo(die,'Biologia','Genética, ecologia e citologia com mapas mentais.',[[3,'16:00']],60,'online','https://meet.exemplo/bio',6);
+  const oh=mo(eli,'História','Brasil República, Guerras Mundiais e Guerra Fria.',[[1,'14:00'],[3,'14:00']],60,'presencial','Sala 8',5);
+  mo(eli,'Geografia','Geopolítica, climatologia e cartografia.',[[2,'16:00']],60,'online','https://meet.exemplo/geo',6);
+  mo(eli,'Filosofia','Ética, filósofos clássicos e argumentação.',[[4,'19:00']],60,'online','https://meet.exemplo/filo',8);
+  mo(eli,'Sociologia','Movimentos sociais, cidadania e desigualdade.',[[5,'19:00']],60,'online','https://meet.exemplo/socio',8);
+  mo(fel,'Português','Gramática, interpretação de texto e literatura.',[[2,'08:00']],50,'presencial','Biblioteca – sala 1',4);
+  mo(fel,'Redação','Estrutura dissertativa e as 5 competências do ENEM.',[[4,'14:00'],[6,'09:00']],90,'presencial','Sala 3',3,'Traga uma redação para correção.');
+  mo(fel,'Inglês','Conversação, reading e preparação para provas.',[[3,'19:00']],60,'online','https://meet.exemplo/ingles',5);
+  mo(gab,'Espanhol','Vocabulário essencial e interpretação de textos.',[[5,'10:00']],60,'online','https://meet.exemplo/espanhol',5);
+  mo(ana,'Programação','Introdução a HTML, CSS e JavaScript.',[[5,'14:00']],90,'online','https://meet.exemplo/prog',4);
+  const nd=(day,dir)=>{for(let i=1;i<=7;i++){const d=addD(today(),i*dir);if(d.getDay()===day)return ymd(d)}};
+  newReq(o2,o2.slots[0],bru.id,nd(1,1),'Dúvida em MRU.');
+  const r=newReq(o1,o1.slots[1],bru.id,nd(4,-1),'');r.status='concluida';r.log.push({s:'aceita',at:t},{s:'concluida',at:t});
+  db.reviews.push({id:nid(),reqId:r.id,monitorId:ana.id,authorId:bru.id,rating:5,comment:'Explicação muito clara! (exemplo)',createdAt:t});
+  const r2=newReq(oh,oh.slots[0],car.id,nd(1,-1),'');r2.status='concluida';r2.log.push({s:'aceita',at:t},{s:'concluida',at:t});
+  db.reviews.push({id:nid(),reqId:r2.id,monitorId:eli.id,authorId:car.id,rating:5,comment:'Aula dinâmica, recomendo! (exemplo)',createdAt:t});
+  db.notifs.push({id:nid(),userId:ana.id,text:'Bem-vinda ao Conecta Monitoria! (exemplo)',read:false,createdAt:t});
+  save();
+}
+
+/* ========== REGRAS DE NEGÓCIO ========== */
+const me=()=>{const u=byId(db.users,db.session);return u&&u.active?u:null};
+const has=(u,r)=>u.roles.includes(r);
+const endOf=(o,s)=>tstr(tmin(s.start)+o.dur);
+const startAt=r=>{const d=pD(r.date),m=tmin(r.start);d.setHours(Math.floor(m/60),m%60);return d};
+const used=(o,s,d)=>db.requests.filter(r=>r.offerId===o.id&&r.slotId===s.id&&r.date===d&&ACT.includes(r.status)).length;
+function dates(o,s){const out=[],n=new Date();for(let i=0;i<21;i++){const d=addD(today(),i);if(d.getDay()!==s.day)continue;if(i===0&&tmin(s.start)<=n.getHours()*60+n.getMinutes())continue;out.push(ymd(d))}return out}
+const clash=(uid,date,a,b)=>db.requests.some(r=>ACT.includes(r.status)&&r.date===date&&(r.studentId===uid||r.monitorId===uid)&&tmin(r.start)<tmin(b)&&tmin(a)<tmin(r.end));
+function why(o,s,d){
+  if(o.max-used(o,s,d)<=0)return 'Sem vagas';
+  const u=me();if(!u)return null;
+  if(db.requests.some(r=>r.studentId===u.id&&r.offerId===o.id&&r.slotId===s.id&&r.date===d&&ACT.includes(r.status)))return 'Já solicitado';
+  if(clash(u.id,d,s.start,endOf(o,s)))return 'Conflito de horário';
+  return null;
+}
+const rating=mid=>{const l=db.reviews.filter(r=>r.monitorId===mid);return{n:l.length,avg:l.length?l.reduce((a,r)=>a+r.rating,0)/l.length:0}};
+const rtxt=mid=>{const r=rating(mid);return r.n?`${r.avg.toFixed(1)} ★ (${r.n})`:'sem avaliações'};
+function notify(uid,text){
+  db.notifs.unshift({id:nid(),userId:uid,text,read:false,createdAt:now()});
+  const u=byId(db.users,uid);if(u)db.outbox.push({to:u.email,text,status:'fila – e-mail desativado no protótipo',at:now()});
+  db.outbox=db.outbox.slice(-100);
+}
+function setSt(r,s,note=''){r.status=s;r.updatedAt=now();r.log.push({s,at:now(),note})}
+function overlap(uid,slots,dur,ex){
+  const mine=slots.map(s=>({d:s.day,a:tmin(s.start),b:tmin(s.start)+dur}));
+  const all=[...mine,...db.offers.filter(o=>o.monitorId===uid&&o.id!==ex&&o.active).flatMap(o=>o.slots.map(s=>({d:s.day,a:tmin(s.start),b:tmin(s.start)+o.dur})))];
+  for(let i=0;i<mine.length;i++)for(let j=i+1;j<all.length;j++)
+    if(all[i].d===all[j].d&&all[i].a<all[j].b&&all[j].a<all[i].b)return `Horários sobrepostos em ${DAYS[all[i].d]} às ${tstr(all[i].a)}.`;
+  return null;
+}
+function canCancel(r){
+  const u=me().id,h=(startAt(r)-new Date())/36e5;
+  if(r.status==='pendente')return r.studentId===u;
+  if(r.status!=='aceita')return false;
+  return r.studentId===u?h>=CANCEL_H:r.monitorId===u&&h>0;
+}
+function reminders(u){
+  db.requests.filter(r=>r.status==='aceita'&&(r.studentId===u.id||r.monitorId===u.id)).forEach(r=>{
+    const h=(startAt(r)-new Date())/36e5,k='rem'+u.id;
+    if(h>0&&h<=24&&!r[k]){r[k]=1;notify(u.id,`Lembrete: ${r.subject} em ${fD(r.date)} às ${r.start}.`)}
+  });
+}
+function cancelActive(o,why){
+  db.requests.filter(r=>r.offerId===o.id&&ACT.includes(r.status)).forEach(r=>{setSt(r,'cancelada',why);notify(r.studentId,`Sua solicitação de ${r.subject} (${fD(r.date)}) foi cancelada: ${why}.`)});
+}
+
+/* ========== ESTADO E UI ========== */
+const S={v:'home',p:null,tab:'rec',atab:'res',uq:'',f:{q:'',area:'',day:'',period:'',format:'',vagas:false},sel:null,modal:null,draft:null,reset:null};
+let tt;
+function toast(m,ok=true){$('#toast').innerHTML=`<div class="toast" role="${ok?'status':'alert'}" style="background:${ok?'#0F766E':'#991b1b'}">${ok?'✔':'⚠'} ${esc(m)}</div>`;clearTimeout(tt);tt=setTimeout(()=>$('#toast').innerHTML='',4000)}
+const field=(l,i,h='')=>`<label class="f"><span>${l}</span>${i}${h?`<span class="hint">${h}</span>`:''}</label>`;
+const badge=s=>`<span class="badge b-${s}">${ST[s]}</span>`;
+const stars=n=>`<span role="img" aria-label="${n} de 5" style="color:#b45309">${'★'.repeat(n)}${'☆'.repeat(5-n)}</span>`;
+const empty=(t,s='')=>`<div class="empty"><p><strong>${t}</strong></p>${s?`<p class="mut">${s}</p>`:''}</div>`;
+const opts=(l,v)=>l.map(([k,t])=>`<option value="${esc(k)}" ${String(k)===String(v)?'selected':''}>${esc(t)}</option>`).join('');
+const tabs=(l,cur,a)=>`<div role="tablist" class="tabs">${l.map(([k,t])=>`<button role="tab" class="tab" aria-selected="${k===cur}" data-a="${a}" data-id="${k}">${t}</button>`).join('')}</div>`;
+const nf=()=>`<div class="card">${empty('Conteúdo não encontrado','Pode ter sido removido ou você não tem acesso.')}<p><button class="btn p" data-a="go" data-v="catalog">Ir ao catálogo</button></p></div>`;
+const ferr=(f,m)=>{f.querySelector('.err').innerHTML=`<div class="alert" role="alert">⚠ ${esc(m)}</div>`};
+
+function header(u){
+  const un=u?db.notifs.filter(n=>n.userId===u.id&&!n.read).length:0;
+  const items=!u?[['catalog','Catálogo'],['login','Entrar'],['register','Cadastrar-se']]:u.admin?[['admin','Administração'],['catalog','Catálogo']]:
+    [['dash','Painel'],['catalog','Catálogo'],['my','Minhas monitorias'],...(has(u,'monitor')?[['offers','Minhas ofertas']]:[]),['notifs',`Notificações${un?` (${un})`:''}`],['profile','Perfil']];
+  return `<header class="top"><div class="wrap"><button class="logo" data-a="go" data-v="${u?(u.admin?'admin':'dash'):'home'}" aria-label="Conecta Monitoria – Instituto Vértice, página inicial">${LOGO}</button>
+  <nav aria-label="Principal">${items.map(([v,l])=>`<button class="nav" data-a="go" data-v="${v}" ${S.v===v?'aria-current="page"':''}>${l}</button>`).join('')}${u?'<button class="nav" data-a="logout">Sair</button>':''}</nav></div></header>`;
+}
+function modal(){
+  const m=S.modal;if(!m)return '';
+  const bt=ok=>`<div class="row" style="justify-content:flex-end;margin-top:14px"><button type="button" class="btn s" data-a="close">Voltar</button>${ok}</div>`;
+  let t='',b='';
+  if(m.t==='confirm'){t=m.title;b=`<p>${esc(m.text)}</p>${bt(`<button class="btn d" data-a="${m.act}" data-id="${m.id}">Confirmar</button>`)}`}
+  if(m.t==='req'){const o=byId(db.offers,S.sel.oid),s=o.slots.find(x=>x.id===S.sel.sid);t='Confirmar solicitação';
+    b=`<form data-f="req"><div class="err"></div><ul class="clean"><li><b>Matéria:</b> ${esc(subj(o.subjectId))}</li><li><b>Monitor(a):</b> ${esc(byId(db.users,o.monitorId).name)}</li><li><b>Quando:</b> ${fD(S.sel.date)}, ${s.start}–${endOf(o,s)}</li><li><b>Formato:</b> ${o.format==='online'?'On-line':'Presencial'}</li></ul><br>
+    ${field('Mensagem (opcional)','<textarea name="msg" rows="3" maxlength="300" class="in" placeholder="Qual é a sua dúvida?"></textarea>','O pedido fica pendente até o monitor responder.')}${bt('<button class="btn p">Enviar pedido</button>')}</form>`}
+  if(m.t==='review'){t='Avaliar monitoria';b=`<form data-f="review"><div class="err"></div><fieldset style="border:0;padding:0"><legend>Nota</legend><div class="row">${[1,2,3,4,5].map(n=>`<label><input type="radio" name="rating" value="${n}" ${n===5?'checked':''}> ${n}★</label>`).join('')}</div></fieldset>
+    ${field('Comentário','<textarea name="comment" rows="3" maxlength="300" class="in"></textarea>','Mínimo de 5 caracteres.')}${bt('<button class="btn p">Enviar</button>')}</form>`}
+  if(m.t==='report'){t='Denunciar avaliação';b=`<form data-f="report"><div class="err"></div>${field('Motivo','<textarea name="reason" rows="3" maxlength="300" class="in"></textarea>','Mínimo de 10 caracteres.')}${bt('<button class="btn d">Enviar denúncia</button>')}</form>`}
+  if(m.t==='gdemo'){t='Continuar com Google';b=`<form data-f="gdemo" class="grid" novalidate><div class="err"></div><p class="info">Modo simulação. Para o login real, o administrador configura o Client ID em <b>Administração › Integrações</b>.</p>
+    ${field('Nome','<input name="name" class="in" autocomplete="name">','Obrigatório no primeiro acesso.')}${field('Conta Gmail','<input name="email" type="email" class="in" placeholder="voce@gmail.com">')}${bt('<button class="btn p">Continuar</button>')}</form>`}
+  return `<div class="mbg"><div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><h2 id="mt" style="margin-top:0">${t}</h2>${b}</div></div>`;
+}
+function render(){
+  const u=me();if(db.session&&!u)db.session=null;if(u)reminders(u);
+  const v=V[S.v];
+  $('#app').innerHTML=header(u)+`<main id="main" tabindex="-1" class="wrap" style="outline:none">${v?v():nf()}</main><footer class="wrap hint">Instituto Vértice • Rigor que inspira. — Protótipo educacional, dados de demonstração fictícios.</footer>`+modal();
+  save();
+  if(S.modal)$('#modal textarea,#modal input,#modal button')?.focus();
+  mountG();
+}
+function go(v,p=null){
+  const u=me(),priv=['dash','my','offers','form','profile','notifs','admin'];
+  if(priv.includes(v)&&!u){toast('Entre na sua conta para continuar.',false);v='login'}
+  else if(v==='admin'&&!u.admin){toast('Acesso restrito.',false);v='dash'}
+  else if(u?.admin&&priv.includes(v)&&v!=='admin')v='admin';
+  else if(['offers','form'].includes(v)&&u&&!has(u,'monitor')){toast('Ative o perfil de monitor em Perfil.',false);v='profile'}
+  if(v!=='offer')S.sel=null;
+  if(v!=='form')S.draft=null;
+  S.v=v;S.p=p;S.modal=null;render();scrollTo(0,0);$('#main')?.focus();
+}
+
+/* ========== LOGIN COM GOOGLE ========== */
+const G_ICON=`<svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.6 13.3l7.9 6.1C12.4 13.7 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.7 6C44.1 38 46.5 31.8 46.5 24.5z"/><path fill="#FBBC05" d="M10.5 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.1C1 16.6 0 20.2 0 24s1 7.4 2.6 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.7-6c-2.1 1.4-4.9 2.3-8.2 2.3-6.3 0-11.6-4.2-13.5-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg>`;
+const gFallback=()=>`<button type="button" class="gbtn" data-a="gdemo">${G_ICON} Continuar com Google</button>`;
+const gBlock=()=>`<div id="gbtn" style="display:flex;justify-content:center;min-height:42px">${GOOGLE_CLIENT_ID?'<span class="hint">Carregando Google…</span>':gFallback()}</div><div class="or">ou com e-mail</div>`;
+const jwt=t=>JSON.parse(decodeURIComponent(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')).split('').map(c=>'%'+c.charCodeAt(0).toString(16).padStart(2,'0')).join('')));
+function gLogin(email,name,pic){
+  email=email.toLowerCase();let u=db.users.find(x=>x.email===email);const nw=!u;
+  if(u&&!u.active)return toast('Conta desativada. Procure a coordenação.',false);
+  if(!u){u={id:nid(),name,email,pw:null,provider:'google',pic:pic||'',turma:'A definir',roles:['aluno'],admin:false,active:true,createdAt:now(),updatedAt:now()};db.users.push(u);notify(u.id,'Conta criada com Google. Informe sua turma em Perfil.')}
+  else if(!u.provider){u.provider='google';u.updatedAt=now()}
+  db.session=u.id;S.modal=null;toast(`Bem-vindo(a), ${u.name.split(' ')[0]}!`);go(u.admin?'admin':nw?'profile':'dash');
+}
+function gCallback(r){
+  try{const p=jwt(r.credential);
+    if(p.aud!==GOOGLE_CLIENT_ID||!['accounts.google.com','https://accounts.google.com'].includes(p.iss))return toast('Token do Google inválido.',false);
+    if(p.exp*1000<Date.now())return toast('Sessão Google expirada. Tente novamente.',false);
+    if(!p.email_verified)return toast('E-mail Google não verificado.',false);
+    gLogin(p.email,p.name||p.email.split('@')[0],p.picture);
+  }catch(e){toast('Falha no login com Google.',false)}
+}
+function mountG(){
+  const el=$('#gbtn');if(!el||!GOOGLE_CLIENT_ID)return;
+  if(!window.google?.accounts?.id){if(mountG.failed)el.innerHTML=gFallback();return}
+  if(location.protocol==='file:'){el.innerHTML=`<p class="info" style="margin:0">Abra o site por um servidor (ex.: Live Server) para usar o login Google.</p>`;return}
+  if(!mountG.ok){google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:gCallback,ux_mode:'popup',auto_select:false,cancel_on_tap_outside:true});mountG.ok=1}
+  el.innerHTML='';google.accounts.id.renderButton(el,{theme:'outline',size:'large',shape:'rectangular',text:'continue_with',locale:'pt-BR',width:Math.min(360,el.offsetWidth||360)});
+}
+
+/* ========== TELAS ========== */
+const V={};
+V.home=()=>`<section class="hero"><p class="hint" style="letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin:0">Instituto Vértice</p><h1 style="font-size:2rem">Rigor que inspira.<br>Alunos ensinando alunos.</h1><p style="max-width:560px">Ofereça monitorias, encontre ajuda e acompanhe tudo em um só lugar.</p>
+<div class="row"><button class="btn y" data-a="go" data-v="register">Cadastrar-se</button><button class="btn s" data-a="go" data-v="login">Entrar</button><button class="btn" style="border-color:#fff;color:#fff" data-a="go" data-v="catalog">Ver monitorias</button></div></section>
+<div class="grid g2" style="margin-top:14px">${[['🔎 Encontre','Busque por matéria, monitor ou assunto.'],['📅 Agende','Escolha um horário com vaga e envie o pedido.'],['✅ Acompanhe','Veja o status, receba avisos e avalie.']].map(([a,b])=>`<div class="card"><b>${a}</b><p class="mut">${b}</p></div>`).join('')}</div>
+<h2>Explore por área do conhecimento</h2><div class="grid g4">${AREAS.map(a=>{const n=db.offers.filter(o=>o.active&&areaOf(o)===a).length;return `<button class="card areaCard" data-a="area" data-id="${esc(a)}"><span class="area">${n} monitoria(s)</span><b style="font-family:Sora,Inter,sans-serif">${esc(a)}</b></button>`}).join('')}</div>
+<div class="card" style="margin-top:14px"><h2 style="margin-top:0">Contas de demonstração <span class="hint">(fictícias)</span></h2><div class="grid g2">
+${[['ana@escola.exemplo','Ana – monitora'],['bruno@escola.exemplo','Bruno – estudante'],['carla@escola.exemplo','Carla – monitora e estudante'],['admin@escola.exemplo','Coordenação – admin']].map(([e,l])=>`<button class="btn s" data-a="demo" data-id="${e}">Entrar como ${l}</button>`).join('')}</div>
+<p><button class="link hint" data-a="askReset">Restaurar dados de demonstração</button></p></div>`;
+
+V.login=()=>`<div class="card" style="max-width:420px;margin:auto"><h1>Entrar</h1>${gBlock()}<form data-f="login" class="grid" novalidate><div class="err"></div>
+${field('E-mail','<input name="email" type="email" class="in" autocomplete="email">')}${field('Senha','<input name="pw" type="password" class="in" autocomplete="current-password">')}<button class="btn p">Entrar</button></form>
+<div class="row sb" style="margin-top:12px"><button class="link" data-a="go" data-v="forgot">Esqueci a senha</button><button class="link" data-a="go" data-v="register">Criar conta</button></div></div>`;
+
+V.register=()=>`<div class="card" style="max-width:420px;margin:auto"><h1>Criar conta</h1>${gBlock()}<form data-f="register" class="grid" novalidate><div class="err"></div>
+${field('Nome completo','<input name="name" class="in" autocomplete="name">')}${field('E-mail','<input name="email" type="email" class="in">')}
+${field('Turma','<input name="turma" class="in" placeholder="Ex.: 2º Ano B">')}${field('Senha','<input name="pw" type="password" class="in" autocomplete="new-password">','Mínimo de 6 caracteres.')}
+<fieldset style="border:0;padding:0"><legend>Como quer participar?</legend><label><input type="checkbox" name="role" value="aluno" checked> Buscar monitorias</label><br><label><input type="checkbox" name="role" value="monitor"> Oferecer monitorias</label></fieldset>
+<button class="btn p">Cadastrar</button></form></div>`;
+
+V.forgot=()=>`<div class="card" style="max-width:420px;margin:auto"><h1>Recuperar senha</h1>${!S.reset?
+`<form data-f="forgot" class="grid" novalidate><div class="err"></div>${field('E-mail cadastrado','<input name="email" type="email" class="in">')}<button class="btn p">Enviar código</button></form>`:
+`<p class="alert" style="background:#fffbeb;border-color:#d97706;color:#78350f">Se o e-mail existir, um código foi enviado. <b>Demonstração:</b> código <b>${S.reset.code}</b>.</p>
+<form data-f="resetpw" class="grid" novalidate><div class="err"></div>${field('Código','<input name="code" inputmode="numeric" class="in">')}${field('Nova senha','<input name="pw" type="password" class="in">','Mínimo de 6 caracteres.')}<button class="btn p">Redefinir</button></form>`}</div>`;
+
+V.dash=()=>{
+  const u=me(),i=u.id,R=db.requests;
+  const next=R.filter(r=>r.status==='aceita'&&(r.studentId===i||r.monitorId===i)&&startAt(r)>new Date()).sort((a,b)=>startAt(a)-startAt(b));
+  const k=(n,l,v,t)=>`<button class="card" style="text-align:left" data-a="go" data-v="${v}" ${t?`data-id="${t}"`:''}><span style="font-family:Sora,Inter,sans-serif;font-size:1.9rem;font-weight:800;color:var(--cobalto)">${n}</span><span class="mut" style="display:block">${l}</span></button>`;
+  return `<h1>Olá, ${esc(u.name.split(' ')[0])}! 👋</h1>${u.turma==='A definir'?`<p class="info">Complete seu cadastro: <button class="link" data-a="go" data-v="profile">informe sua turma</button>.</p>`:''}<div class="grid g4">
+  ${k(R.filter(r=>r.monitorId===i&&r.status==='pendente').length,'Pedidos para responder','my','rec')}${k(R.filter(r=>r.studentId===i&&r.status==='pendente').length,'Pedidos enviados pendentes','my','env')}
+  ${k(next.length,'Próximas monitorias','my','conf')}${k(db.notifs.filter(n=>n.userId===i&&!n.read).length,'Notificações não lidas','notifs')}</div>
+  <h2>Próximas monitorias confirmadas</h2>${next.length?`<div class="grid g2">${next.slice(0,4).map(reqCard).join('')}</div>`:empty('Nenhuma monitoria confirmada','Explore o catálogo e agende a primeira.')}
+  <div class="row" style="margin-top:14px"><button class="btn p" data-a="go" data-v="catalog">Buscar monitorias</button>${has(u,'monitor')?'<button class="btn s" data-a="go" data-v="form">Nova oferta</button>':''}</div>`;
+};
+
+function filtered(){
+  const f=S.f,q=norm(f.q.trim());
+  return db.offers.filter(o=>{
+    const m=byId(db.users,o.monitorId);if(!o.active||!m?.active)return false;
+    if(q&&!norm(subj(o.subjectId)+' '+areaOf(o)+' '+m.name+' '+o.desc).includes(q))return false;
+    if(f.format&&o.format!==f.format)return false;
+    if(f.area&&areaOf(o)!==f.area)return false;
+    if(f.day!==''&&!o.slots.some(s=>s.day===+f.day))return false;
+    if(f.period&&!o.slots.some(s=>{const h=tmin(s.start)/60;return f.period==='manha'?h<12:f.period==='tarde'?h>=12&&h<18:h>=18}))return false;
+    if(f.vagas&&!o.slots.some(s=>dates(o,s).some(d=>o.max-used(o,s,d)>0)))return false;
+    return true;
+  });
+}
+function offerCard(o){
+  const m=byId(db.users,o.monitorId),open=o.slots.reduce((n,s)=>n+dates(o,s).filter(d=>o.max-used(o,s,d)>0).length,0);
+  return `<article class="card grid" style="align-content:start"><div class="row sb"><div><span class="area">${esc(areaOf(o))}</span><h3>${esc(subj(o.subjectId))}</h3></div><span class="chip">${o.format==='online'?'💻 On-line':'🏫 Presencial'}</span></div>
+  <p class="mut">Monitor(a): <button class="link" data-a="go" data-v="monitor" data-id="${m.id}">${esc(m.name)}</button> • ${rtxt(m.id)}</p><p style="margin:0">${esc(o.desc)}</p>
+  <div class="row">${o.slots.map(s=>`<span class="chip">${DAYS[s.day]} ${s.start}</span>`).join('')}</div>
+  <b style="color:${open?'#0F766E':'#991b1b'}">${open?`✔ ${open} horário(s) com vaga`:'✖ Sem vagas no momento'}</b>
+  <button class="btn p" data-a="go" data-v="offer" data-id="${o.id}">Ver detalhes e agendar</button></article>`;
+}
+const results=()=>{const l=filtered();return l.length?`<p class="mut" aria-live="polite">${l.length} monitoria(s) encontrada(s)</p><div class="grid g2">${l.map(offerCard).join('')}</div>`:empty('Nenhuma monitoria encontrada','Remova filtros ou busque outra matéria.')};
+V.catalog=()=>{const f=S.f;return `<h1>Catálogo de monitorias</h1><form class="card grid g4" role="search" onsubmit="return false">
+${field('Buscar',`<input name="q" data-live="cat" value="${esc(f.q)}" class="in" placeholder="Matéria, monitor ou assunto">`)}
+${field('Área',`<select name="area" data-live="cat" class="in"><option value="">Todas</option>${opts(AREAS.map(a=>[a,a]),f.area)}</select>`)}
+${field('Dia',`<select name="day" data-live="cat" class="in"><option value="">Todos</option>${opts(DAYS.map((d,i)=>[i,d]),f.day)}</select>`)}
+${field('Período',`<select name="period" data-live="cat" class="in">${opts([['','Todos'],['manha','Manhã'],['tarde','Tarde'],['noite','Noite']],f.period)}</select>`)}
+${field('Formato',`<select name="format" data-live="cat" class="in">${opts([['','Todos'],['presencial','Presencial'],['online','On-line']],f.format)}</select>`)}
+<label style="align-self:end"><input type="checkbox" name="vagas" data-live="cat" ${f.vagas?'checked':''}> Apenas com vagas</label></form><div id="results" style="margin-top:14px">${results()}</div>`};
+
+V.offer=()=>{
+  const o=byId(db.offers,S.p),u=me();if(!o)return nf();
+  const m=byId(db.users,o.monitorId),mine=u?.id===o.monitorId;
+  if((!o.active||!m.active)&&!mine&&!u?.admin)return nf();
+  const see=u&&(mine||u.admin||db.requests.some(r=>r.offerId===o.id&&r.studentId===u.id&&['aceita','concluida'].includes(r.status)));
+  const sel=S.sel;
+  return `<button class="link" data-a="go" data-v="catalog">← Catálogo</button><article class="card" style="margin-top:10px">
+  <span class="area">${esc(areaOf(o))}</span><div class="row sb"><h1 style="margin:0">${esc(subj(o.subjectId))}</h1>${o.active?'':'<span class="chip">⏸ Pausada</span>'}</div><p>${esc(o.desc)}</p>
+  <div class="grid g2" style="font-size:14px"><div><b>Monitor(a):</b> <button class="link" data-a="go" data-v="monitor" data-id="${m.id}">${esc(m.name)}</button> (${esc(m.turma)}) • ${rtxt(m.id)}</div>
+  <div><b>Duração:</b> ${o.dur} min</div><div><b>Formato:</b> ${o.format==='online'?'On-line':'Presencial'}</div><div><b>Máx. participantes:</b> ${o.max}</div>
+  <div><b>${o.format==='online'?'Link':'Local'}:</b> ${see?esc(o.place):'🔒 liberado após confirmação'}</div>${o.notes?`<div><b>Requisitos:</b> ${esc(o.notes)}</div>`:''}</div></article>
+  <h2>Escolha um horário</h2>${!o.active?empty('Oferta pausada'):`<div class="grid">${o.slots.map(s=>{const ds=dates(o,s);return `<div class="card"><b>${DAYS[s.day]} • ${s.start}–${endOf(o,s)}</b><div class="row" style="margin-top:8px">
+  ${ds.map(d=>{const w=mine?'Sua oferta':why(o,s,d),on=sel&&sel.sid===s.id&&sel.date===d;return `<button class="pick" data-a="pick" data-oid="${o.id}" data-sid="${s.id}" data-date="${d}" aria-pressed="${!!on}" ${w?'disabled':''}><b>${on?'✔ ':''}${fD(d)}</b><br><span class="hint" style="color:inherit">${w||(o.max-used(o,s,d))+' vaga(s)'}</span></button>`}).join('')||'<span class="mut">Sem datas nas próximas 3 semanas.</span>'}</div></div>`}).join('')}</div>
+  ${mine?'':`<p><button class="btn p" data-a="askReq" ${sel?'':'disabled'}>${u?'Solicitar monitoria':'Entre para solicitar'}</button></p>`}`}`;
+};
+
+V.monitor=()=>{
+  const m=byId(db.users,S.p),u=me();if(!m||!m.active||!has(m,'monitor'))return nf();
+  const of=db.offers.filter(o=>o.monitorId===m.id&&o.active),rv=db.reviews.filter(r=>r.monitorId===m.id).reverse();
+  return `<button class="link" data-a="go" data-v="catalog">← Catálogo</button><div class="card" style="margin-top:10px"><h1 style="margin:0">${esc(m.name)}</h1><p class="mut">${esc(m.turma)} • ${rtxt(m.id)}</p></div>
+  <h2>Monitorias oferecidas</h2>${of.length?`<div class="grid g2">${of.map(offerCard).join('')}</div>`:empty('Nenhuma oferta ativa')}
+  <h2>Avaliações</h2>${rv.length?`<div class="grid">${rv.map(r=>`<div class="card"><div class="row sb"><span>${stars(r.rating)} <span class="mut">por ${esc((byId(db.users,r.authorId)?.name||'Aluno').split(' ')[0])}</span></span>
+  ${u&&!u.admin&&u.id!==r.authorId?`<button class="link" style="color:#991b1b" data-a="askReport" data-id="${r.id}">Denunciar</button>`:''}</div><p style="margin:6px 0 0">${esc(r.comment)}</p></div>`).join('')}</div>`:empty('Sem avaliações ainda')}`;
+};
+
+function reqCard(r){
+  const i=me().id,isM=r.monitorId===i,isS=r.studentId===i,mon=byId(db.users,r.monitorId),stu=byId(db.users,r.studentId);
+  let a='';
+  if(r.status==='pendente'&&isM)a+=`<button class="btn g" data-a="accept" data-id="${r.id}">Aceitar</button><button class="btn d" data-a="refuse" data-id="${r.id}">Recusar</button>`;
+  if(canCancel(r))a+=`<button class="btn s" data-a="askCancel" data-id="${r.id}">Cancelar</button>`;
+  if(r.status==='aceita'&&startAt(r)<=new Date())a+=`<button class="btn p" data-a="complete" data-id="${r.id}">Marcar como concluída</button>`;
+  if(r.status==='concluida'&&isS&&!db.reviews.some(x=>x.reqId===r.id))a+=`<button class="btn p" data-a="askReview" data-id="${r.id}">Avaliar</button>`;
+  return `<article class="card"><div class="row sb"><h3>${esc(r.subject)}</h3>${badge(r.status)}</div>
+  <p class="mut" style="color:var(--abissal)">📅 ${fD(r.date)}, ${r.start}–${r.end} • ${r.format==='online'?'💻 On-line':'🏫 Presencial'}</p>
+  <p class="mut">👤 Monitor(a): ${esc(mon?.name)} • Estudante: ${esc(stu?.name)}</p>
+  ${['aceita','concluida'].includes(r.status)?`<p class="mut">📍 ${esc(r.place)}</p>`:''}${r.msg?`<p class="mut">“${esc(r.msg)}”</p>`:''}
+  ${a?`<div class="row" style="margin-top:8px">${a}</div>`:''}${r.status==='aceita'&&isS?`<p class="hint">Cancelamento até ${CANCEL_H}h antes do início.</p>`:''}
+  <details style="margin-top:6px"><summary class="hint">Histórico</summary><ul class="clean hint">${r.log.map(l=>`<li>${fDT(l.at)} — ${ST[l.s]}${l.note?` (${esc(l.note)})`:''}</li>`).join('')}</ul></details></article>`;
+}
+V.my=()=>{
+  const i=me().id,pt=r=>r.studentId===i||r.monitorId===i,R=db.requests;
+  const L={rec:R.filter(r=>r.monitorId===i&&r.status==='pendente'),env:R.filter(r=>r.studentId===i&&r.status==='pendente'),
+    conf:R.filter(r=>r.status==='aceita'&&pt(r)),hist:R.filter(r=>['concluida','cancelada','recusada'].includes(r.status)&&pt(r))};
+  const N={rec:'Pedidos recebidos',env:'Pedidos enviados',conf:'Confirmadas',hist:'Histórico'};
+  const l=L[S.tab].slice().sort((a,b)=>S.tab==='hist'?b.updatedAt.localeCompare(a.updatedAt):startAt(a)-startAt(b));
+  return `<h1>Minhas monitorias</h1>${tabs(Object.keys(N).map(k=>[k,`${N[k]} (${L[k].length})`]),S.tab,'tab')}${l.length?`<div class="grid g2">${l.map(reqCard).join('')}</div>`:empty('Nada por aqui ainda')}`;
+};
+
+V.offers=()=>{
+  const l=db.offers.filter(o=>o.monitorId===me().id);
+  return `<div class="row sb"><h1>Minhas ofertas</h1><button class="btn p" data-a="go" data-v="form">+ Nova oferta</button></div>${l.length?`<div class="grid g2">${l.map(o=>`<article class="card grid">
+  <div class="row sb"><div><span class="area">${esc(areaOf(o))}</span><h3>${esc(subj(o.subjectId))}</h3></div><span class="chip">${o.active?'✔ Ativa':'⏸ Pausada'}</span></div><p class="mut">${esc(o.desc)}</p>
+  <div class="row">${o.slots.map(s=>`<span class="chip">${DAYS[s.day]} ${s.start}–${endOf(o,s)}</span>`).join('')}</div>
+  <p class="hint">${o.format==='online'?'On-line':'Presencial'} • ${o.dur} min • até ${o.max} participantes</p>
+  <div class="row"><button class="btn s" data-a="go" data-v="offer" data-id="${o.id}">Ver</button><button class="btn s" data-a="edit" data-id="${o.id}">Editar</button>
+  <button class="btn s" data-a="toggleOffer" data-id="${o.id}">${o.active?'Pausar':'Reativar'}</button><button class="btn d" data-a="askDel" data-id="${o.id}">Excluir</button></div></article>`).join('')}</div>`:empty('Você ainda não tem ofertas','Crie sua primeira monitoria.')}`;
+};
+
+const blank=()=>({id:null,subjectId:db.subjects[0]?.id,desc:'',slots:[{id:null,day:1,start:'14:00'}],dur:60,format:'presencial',place:'',max:3,notes:''});
+function syncDraft(){
+  const f=$('#offerForm'),d=S.draft;if(!f)return;
+  Object.assign(d,{subjectId:+f.subjectId.value,desc:f.desc.value,dur:+f.dur.value,format:f.format.value,place:f.place.value,max:+f.max.value,notes:f.notes.value,
+    slots:[...f.querySelectorAll('.slot')].map(r=>({id:r.dataset.sid?+r.dataset.sid:null,day:+r.querySelector('select').value,start:r.querySelector('input').value}))});
+}
+V.form=()=>{
+  const d=S.draft||(S.draft=blank());
+  return `<button class="link" data-a="go" data-v="offers">← Minhas ofertas</button><h1>${d.id?'Editar':'Nova'} oferta</h1>
+  <form id="offerForm" data-f="offer" class="card grid" novalidate><div class="err"></div>
+  ${field('Matéria',`<select name="subjectId" class="in">${AREAS.map(a=>{const l=db.subjects.filter(s=>(s.area||'')===a);return l.length?`<optgroup label="${esc(a)}">${opts(l.map(s=>[s.id,s.name]),d.subjectId)}</optgroup>`:''}).join('')}${opts(db.subjects.filter(s=>!AREAS.includes(s.area)).map(s=>[s.id,s.name]),d.subjectId)}</select>`)}
+  ${field('Assuntos em que pode ajudar',`<textarea name="desc" rows="3" maxlength="300" class="in">${esc(d.desc)}</textarea>`,'Mínimo de 10 caracteres.')}
+  <fieldset><legend>Dias e horários</legend><div class="grid">${d.slots.map((s,i)=>`<div class="row slot" data-sid="${s.id||''}">
+  <select class="in" style="width:auto" aria-label="Dia ${i+1}">${opts(DAYS.map((n,k)=>[k,n]),s.day)}</select><input type="time" class="in" style="width:auto" aria-label="Início ${i+1}" value="${esc(s.start)}">
+  <button type="button" class="btn s" data-a="rmSlot" data-id="${i}" ${d.slots.length<2?'disabled':''}>Remover</button></div>`).join('')}
+  <div><button type="button" class="btn s" data-a="addSlot">+ Adicionar horário</button></div></div></fieldset>
+  <div class="grid g2">${field('Duração (min)',`<input name="dur" type="number" min="15" max="180" step="5" value="${d.dur}" class="in">`)}
+  ${field('Máx. participantes',`<input name="max" type="number" min="1" max="30" value="${d.max}" class="in">`)}
+  ${field('Formato',`<select name="format" class="in">${opts([['presencial','Presencial'],['online','On-line']],d.format)}</select>`)}
+  ${field('Local ou link',`<input name="place" maxlength="200" value="${esc(d.place)}" class="in">`,'Visível só após aceite.')}</div>
+  ${field('Observações e requisitos (opcional)',`<textarea name="notes" rows="2" maxlength="300" class="in">${esc(d.notes)}</textarea>`)}
+  <div class="row"><button class="btn p">Salvar oferta</button><button type="button" class="btn s" data-a="go" data-v="offers">Cancelar</button></div></form>`;
+};
+
+V.notifs=()=>{
+  const l=db.notifs.filter(n=>n.userId===me().id);
+  return `<div class="row sb"><h1>Notificações</h1>${l.some(n=>!n.read)?'<button class="btn s" data-a="readAll">Marcar todas como lidas</button>':''}</div>
+  ${l.length?`<div class="grid">${l.map(n=>`<div class="card ${n.read?'':'unread'}"><div class="row sb"><span>${n.read?'':'<b>● Nova</b> — '}${esc(n.text)}<br><span class="hint">${fDT(n.createdAt)}</span></span>
+  <span class="row"><button class="btn s" data-a="openN" data-id="${n.id}">Abrir</button>${n.read?'':`<button class="btn s" data-a="readN" data-id="${n.id}">Marcar como lida</button>`}</span></div></div>`).join('')}</div>`:empty('Sem notificações')}`;
+};
+
+V.profile=()=>{const u=me();return `<h1>Meu perfil</h1><form data-f="profile" class="card grid" style="max-width:480px" novalidate><div class="err"></div>
+${u.provider==='google'?`<div class="row">${u.pic?`<img src="${esc(u.pic)}" alt="" width="40" height="40" style="border-radius:50%" referrerpolicy="no-referrer">`:G_ICON}<span class="hint">Conta vinculada ao Google</span></div>`:''}
+${field('Nome',`<input name="name" value="${esc(u.name)}" class="in">`)}${field('E-mail',`<input value="${esc(u.email)}" class="in" disabled>`,'Não é exibido publicamente.')}
+${field('Turma',`<input name="turma" value="${u.turma==='A definir'?'':esc(u.turma)}" class="in" placeholder="Ex.: 2º Ano B">`)}
+<fieldset style="border:0;padding:0"><legend>Participação</legend><label><input type="checkbox" name="role" value="aluno" ${has(u,'aluno')?'checked':''}> Estudante</label><br><label><input type="checkbox" name="role" value="monitor" ${has(u,'monitor')?'checked':''}> Monitor</label></fieldset>
+${field(u.provider==='google'&&!u.pw?'Criar senha (opcional)':'Nova senha (opcional)','<input name="pw" type="password" class="in" autocomplete="new-password">','Mínimo de 6 caracteres.')}<button class="btn p">Salvar</button></form>`};
+
+function usersTable(){
+  const q=norm(S.uq.trim()),l=db.users.filter(u=>!q||norm(u.name+u.email+u.turma).includes(q));
+  return l.length?`<div style="overflow:auto"><table><thead><tr><th>Nome</th><th>Turma</th><th>Perfil</th><th>Acesso</th><th>Situação</th><th>Ação</th></tr></thead><tbody>${l.map(u=>`<tr><td>${esc(u.name)}<br><span class="hint">${esc(u.email)}</span></td><td>${esc(u.turma)}</td>
+  <td>${u.admin?'Administrador':u.roles.map(r=>r==='aluno'?'Estudante':'Monitor').join(', ')}</td><td>${u.provider==='google'?'Google':'E-mail'}</td><td>${u.active?'✔ Ativa':'⊘ Desativada'}</td><td>${u.admin?'—':`<button class="btn s" data-a="toggleUser" data-id="${u.id}">${u.active?'Desativar':'Ativar'}</button>`}</td></tr>`).join('')}</tbody></table></div>`:empty('Nenhum usuário encontrado');
+}
+V.admin=()=>{
+  const t=S.atab,open=db.reports.filter(r=>r.status==='aberta').length;let b='';
+  if(t==='res'){const k=(n,l)=>`<div class="card"><span style="font-family:Sora,Inter,sans-serif;font-size:1.9rem;font-weight:800;color:var(--cobalto)">${n}</span><span class="mut" style="display:block">${l}</span></div>`;
+    b=`<div class="grid g4">${k(db.users.filter(u=>!u.admin&&has(u,'aluno')).length,'Estudantes')}${k(db.offers.length,'Monitorias ofertadas')}${k(db.requests.filter(r=>r.status==='pendente').length,'Pedidos pendentes')}${k(db.requests.filter(r=>r.status==='concluida').length,'Atendimentos concluídos')}</div>
+    <h2>Monitorias por área</h2><div class="grid g4">${AREAS.map(a=>k(db.offers.filter(o=>areaOf(o)===a).length,a)).join('')}</div>`}
+  if(t==='usr')b=`${field('Pesquisar',`<input data-live="usr" value="${esc(S.uq)}" class="in" placeholder="Nome, e-mail ou turma">`)}<div id="ulist" style="margin-top:12px">${usersTable()}</div>`;
+  if(t==='of')b=`<h2 style="margin-top:0">Matérias</h2><form data-f="subject" class="row" novalidate><div class="err" style="width:100%"></div><input name="name" class="in" style="flex:1;width:auto" aria-label="Nova matéria" placeholder="Nova matéria">
+    <select name="area" class="in" style="width:auto" aria-label="Área">${opts(AREAS.map(a=>[a,a]),AREAS[0])}</select><button class="btn p">Adicionar</button></form>
+    <div class="row" style="margin-top:10px">${db.subjects.map(s=>`<span class="chip">${esc(s.name)} <span class="hint">· ${esc(s.area||'—')}</span> <button class="link" style="color:#991b1b" data-a="delSubject" data-id="${s.id}" aria-label="Remover ${esc(s.name)}">✕</button></span>`).join('')}</div>
+    <h2>Monitorias cadastradas</h2>${db.offers.length?`<div style="overflow:auto"><table><thead><tr><th>Área</th><th>Matéria</th><th>Monitor</th><th>Status</th><th>Ações</th></tr></thead><tbody>${db.offers.map(o=>`<tr><td>${esc(areaOf(o))}</td><td>${esc(subj(o.subjectId))}</td><td>${esc(byId(db.users,o.monitorId)?.name)}</td><td>${o.active?'Ativa':'Pausada'}</td>
+    <td class="row"><button class="btn s" data-a="go" data-v="offer" data-id="${o.id}">Ver</button><button class="btn s" data-a="toggleOffer" data-id="${o.id}">${o.active?'Pausar':'Reativar'}</button><button class="btn d" data-a="askDel" data-id="${o.id}">Excluir</button></td></tr>`).join('')}</tbody></table></div>`:empty('Nenhuma oferta')}`;
+  if(t==='den')b=db.reports.length?`<div class="grid">${db.reports.slice().reverse().map(r=>{const rv=byId(db.reviews,r.reviewId);return `<div class="card"><div class="row sb"><b>Denúncia #${r.id}</b><span class="chip">${r.status}</span></div>
+    <p class="mut">Motivo: ${esc(r.reason)}</p><p style="margin:0">${rv?`${stars(rv.rating)} “${esc(rv.comment)}” — ${esc(byId(db.users,rv.authorId)?.name)}`:'<em>Avaliação removida.</em>'}</p>
+    ${r.status==='aberta'?`<div class="row" style="margin-top:8px">${rv?`<button class="btn d" data-a="rmReview" data-id="${r.id}">Remover avaliação</button>`:''}<button class="btn s" data-a="dismiss" data-id="${r.id}">Descartar</button></div>`:''}</div>`}).join('')}</div>`:empty('Nenhuma denúncia');
+  if(t==='int')b=`<div class="card grid" style="max-width:620px"><h2 style="margin-top:0">Login com Google</h2>
+    <p class="mut">Status: <b style="color:${GOOGLE_CLIENT_ID?'#0F766E':'#b45309'}">${GOOGLE_CLIENT_ID?'✔ Login real ativo':'⚠ Modo simulação'}</b></p>
+    <form data-f="gcid" class="grid" novalidate><div class="err"></div>${field('Client ID OAuth (Aplicativo da Web)',`<input name="cid" class="in" value="${esc(GOOGLE_CLIENT_ID)}" placeholder="000000000000-xxxx.apps.googleusercontent.com">`,`Origem a autorizar no Google Cloud: <code>${esc(location.origin)}</code>`)}
+    <div class="row"><button class="btn p">Salvar e recarregar</button>${GOOGLE_CLIENT_ID?'<button type="button" class="btn s" data-a="clearGcid">Voltar ao modo simulação</button>':''}</div></form></div>`;
+  return `<h1>Painel administrativo</h1>${tabs([['res','Resumo'],['usr','Usuários'],['of','Matérias e ofertas'],['den',`Denúncias (${open})`],['int','Integrações']],t,'atab')}${b}`;
+};
+
+/* ========== AÇÕES ========== */
+const myReq=i=>{const u=me(),r=byId(db.requests,i);return u&&r&&(r.studentId===u.id||r.monitorId===u.id)?r:null};
+const myOffer=i=>{const u=me(),o=byId(db.offers,i);return u&&o&&(o.monitorId===u.id||u.admin)?o:null};
+const ask=(title,text,act,id)=>{S.modal={t:'confirm',title,text,act,id};render()};
+const A={
+  go:d=>{if(d.v==='my'&&d.id)S.tab=d.id;go(d.v,d.id?(isNaN(d.id)?null:+d.id):null)},
+  close:()=>{S.modal=null;render()},
+  gdemo:()=>{S.modal={t:'gdemo'};render()},
+  area:d=>{S.f={...S.f,area:d.id};go('catalog')},
+  clearGcid:()=>{localStorage.removeItem('gcid');location.reload()},
+  demo:d=>{const u=db.users.find(x=>x.email===d.id);if(!u)return toast('Conta não encontrada. Restaure os dados.',false);if(!u.active)return toast('Conta desativada.',false);db.session=u.id;toast(`Bem-vindo(a), ${u.name.split(' ')[0]}!`);go(u.admin?'admin':'dash')},
+  logout:()=>{db.session=null;try{window.google?.accounts?.id?.disableAutoSelect()}catch(e){}toast('Você saiu da conta.');go('home')},
+  askReset:()=>ask('Restaurar demonstração','Todos os dados atuais serão apagados e substituídos pelos exemplos.','doReset',0),
+  doReset:()=>{seed();S.modal=null;toast('Dados restaurados.');go('home')},
+  tab:d=>{S.tab=d.id;render()},atab:d=>{S.atab=d.id;render()},
+  pick:d=>{S.sel={oid:+d.oid,sid:+d.sid,date:d.date};render()},
+  askReq:()=>{if(!me()){toast('Entre para solicitar.',false);return go('login')}if(!has(me(),'aluno'))return toast('Ative o perfil de estudante em Perfil.',false);S.modal={t:'req'};render()},
+  accept:d=>{const r=myReq(d.id);if(!r||r.monitorId!==me().id||r.status!=='pendente')return;setSt(r,'aceita');notify(r.studentId,`${me().name} aceitou seu pedido de ${r.subject} (${fD(r.date)} às ${r.start}).`);toast('Pedido aceito.');render()},
+  refuse:d=>ask('Recusar pedido','O estudante será notificado.','doRefuse',d.id),
+  doRefuse:d=>{const r=myReq(d.id);if(!r||r.status!=='pendente')return;setSt(r,'recusada');notify(r.studentId,`Seu pedido de ${r.subject} (${fD(r.date)}) foi recusado.`);S.modal=null;toast('Pedido recusado.');render()},
+  askCancel:d=>ask('Cancelar monitoria','A outra parte será notificada.','doCancel',d.id),
+  doCancel:d=>{const r=myReq(d.id);if(!r||!canCancel(r))return toast('Cancelamento não permitido.',false);setSt(r,'cancelada',`por ${me().name}`);notify(r.studentId===me().id?r.monitorId:r.studentId,`A monitoria de ${r.subject} (${fD(r.date)}) foi cancelada.`);S.modal=null;toast('Cancelada.');render()},
+  complete:d=>{const r=myReq(d.id);if(!r||r.status!=='aceita'||startAt(r)>new Date())return;setSt(r,'concluida');notify(r.studentId===me().id?r.monitorId:r.studentId,`A monitoria de ${r.subject} foi marcada como concluída.`);toast('Monitoria concluída!');render()},
+  askReview:d=>{S.modal={t:'review',id:+d.id};render()},
+  askReport:d=>{S.modal={t:'report',id:+d.id};render()},
+  edit:d=>{const o=myOffer(d.id);if(!o)return;S.draft=JSON.parse(JSON.stringify({id:o.id,subjectId:o.subjectId,desc:o.desc,slots:o.slots,dur:o.dur,format:o.format,place:o.place,max:o.max,notes:o.notes}));S.v='form';render()},
+  addSlot:()=>{syncDraft();S.draft.slots.push({id:null,day:1,start:'14:00'});render()},
+  rmSlot:d=>{syncDraft();S.draft.slots.splice(+d.id,1);render()},
+  toggleOffer:d=>{const o=myOffer(d.id);if(!o)return;
+    if(!o.active){const e=overlap(o.monitorId,o.slots,o.dur,o.id);if(e)return toast(e,false)}else cancelActive(o,'oferta pausada');
+    o.active=!o.active;o.updatedAt=now();toast(o.active?'Oferta reativada.':'Oferta pausada.');render()},
+  askDel:d=>ask('Excluir oferta','Solicitações ativas serão canceladas e os estudantes notificados.','doDel',d.id),
+  doDel:d=>{const o=myOffer(d.id);if(!o)return;cancelActive(o,'oferta excluída');db.offers.splice(db.offers.indexOf(o),1);S.modal=null;toast('Oferta excluída.');render()},
+  readN:d=>{const n=byId(db.notifs,d.id);if(n)n.read=true;render()},
+  readAll:()=>{db.notifs.forEach(n=>{if(n.userId===me().id)n.read=true});render()},
+  openN:d=>{const n=byId(db.notifs,d.id);if(n)n.read=true;go('my')},
+  toggleUser:d=>{if(!me()?.admin)return;const u=byId(db.users,d.id);if(!u||u.admin)return;u.active=!u.active;u.updatedAt=now();
+    if(!u.active){db.offers.filter(o=>o.monitorId===u.id).forEach(o=>{cancelActive(o,'monitor desativado');o.active=false});
+      db.requests.filter(r=>r.studentId===u.id&&ACT.includes(r.status)).forEach(r=>{setSt(r,'cancelada','conta desativada');notify(r.monitorId,`Pedido de ${r.subject} cancelado (conta do estudante desativada).`)})}
+    toast(u.active?'Conta ativada.':'Conta desativada.');render()},
+  delSubject:d=>{if(db.offers.some(o=>o.subjectId===+d.id))return toast('Há ofertas usando esta matéria.',false);db.subjects=db.subjects.filter(s=>s.id!==+d.id);render()},
+  rmReview:d=>{const r=byId(db.reports,d.id);db.reviews=db.reviews.filter(x=>x.id!==r.reviewId);r.status='resolvida';toast('Avaliação removida.');render()},
+  dismiss:d=>{byId(db.reports,d.id).status='descartada';render()}
+};
+
+/* ========== FORMULÁRIOS ========== */
+const val=(f,n)=>(f[n]?.value||'').trim();
+const okEmail=e=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+const roles=f=>[...f.querySelectorAll('[name=role]:checked')].map(x=>x.value);
+const F={
+  login:f=>{const e=val(f,'email').toLowerCase(),u=db.users.find(x=>x.email===e);
+    if(u&&u.provider==='google'&&!u.pw)return 'Esta conta usa o Google. Clique em "Continuar com Google".';
+    if(!u||u.pw!==f.pw.value)return 'E-mail ou senha incorretos.';if(!u.active)return 'Conta desativada. Procure a coordenação.';
+    db.session=u.id;toast('Login realizado.');go(u.admin?'admin':'dash')},
+  gdemo:f=>{const e=val(f,'email').toLowerCase(),n=val(f,'name');
+    if(!/^[^\s@]+@gmail\.com$/.test(e))return 'Informe um endereço @gmail.com válido.';
+    if(!db.users.some(u=>u.email===e)&&n.length<3)return 'Informe seu nome.';
+    gLogin(e,n||e.split('@')[0])},
+  gcid:f=>{const c=val(f,'cid');if(c&&!/^[\w-]+\.apps\.googleusercontent\.com$/.test(c))return 'Client ID inválido. Deve terminar em .apps.googleusercontent.com';
+    c?localStorage.setItem('gcid',c):localStorage.removeItem('gcid');location.reload()},
+  register:f=>{const name=val(f,'name'),email=val(f,'email').toLowerCase(),turma=val(f,'turma'),r=roles(f);
+    if(name.length<3)return 'Informe o nome completo.';if(!okEmail(email))return 'E-mail inválido.';
+    if(db.users.some(u=>u.email===email))return 'E-mail já cadastrado.';if(!turma)return 'Informe a turma.';
+    if(f.pw.value.length<6)return 'A senha deve ter ao menos 6 caracteres.';if(!r.length)return 'Escolha ao menos uma forma de participação.';
+    const u={id:nid(),name,email,pw:f.pw.value,turma,roles:r,admin:false,active:true,createdAt:now(),updatedAt:now()};
+    db.users.push(u);db.session=u.id;notify(u.id,'Conta criada! Explore o catálogo de monitorias.');toast('Conta criada!');go('dash')},
+  forgot:f=>{const e=val(f,'email').toLowerCase();if(!okEmail(e))return 'E-mail inválido.';S.reset={email:e,code:String(Math.floor(1e5+Math.random()*9e5))};render()},
+  resetpw:f=>{if(val(f,'code')!==S.reset.code)return 'Código incorreto.';if(f.pw.value.length<6)return 'A senha deve ter ao menos 6 caracteres.';
+    const u=db.users.find(x=>x.email===S.reset.email);if(u){u.pw=f.pw.value;u.updatedAt=now()}S.reset=null;toast('Senha redefinida. Faça login.');go('login')},
+  req:f=>{const u=me(),{oid,sid,date}=S.sel,o=byId(db.offers,oid),s=o?.slots.find(x=>x.id===sid);
+    if(!o||!o.active||!s)return 'Monitoria indisponível.';if(o.monitorId===u.id)return 'Não é possível solicitar a própria monitoria.';
+    if(!dates(o,s).includes(date))return 'Horário fora da disponibilidade.';const w=why(o,s,date);if(w)return w+'.';
+    const r=newReq(o,s,u.id,date,val(f,'msg').slice(0,300));notify(o.monitorId,`Nova solicitação de ${u.name}: ${r.subject} em ${fD(date)} às ${r.start}.`);
+    S.sel=null;S.tab='env';toast('Pedido enviado! Aguarde a resposta.');go('my')},
+  review:f=>{const r=myReq(S.modal.id),c=val(f,'comment');if(!r||r.status!=='concluida'||r.studentId!==me().id)return 'Avaliação indisponível.';
+    if(c.length<5)return 'Escreva um comentário (mín. 5 caracteres).';if(db.reviews.some(x=>x.reqId===r.id))return 'Já avaliada.';
+    db.reviews.push({id:nid(),reqId:r.id,monitorId:r.monitorId,authorId:me().id,rating:+f.rating.value,comment:c,createdAt:now()});
+    notify(r.monitorId,`Você recebeu uma nova avaliação em ${r.subject}.`);S.modal=null;toast('Obrigado pela avaliação!');render()},
+  report:f=>{const c=val(f,'reason');if(c.length<10)return 'Descreva o motivo (mín. 10 caracteres).';
+    db.reports.push({id:nid(),reviewId:S.modal.id,by:me().id,reason:c,status:'aberta',createdAt:now()});
+    db.users.filter(u=>u.admin).forEach(a=>notify(a.id,'Nova denúncia de avaliação para análise.'));S.modal=null;toast('Denúncia enviada.');render()},
+  offer:f=>{syncDraft();const d=S.draft,u=me();
+    if(d.desc.trim().length<10)return 'Descreva os assuntos (mín. 10 caracteres).';
+    if(!(d.dur>=15&&d.dur<=180))return 'Duração entre 15 e 180 minutos.';if(!(d.max>=1&&d.max<=30))return 'Participantes entre 1 e 30.';
+    if(!d.place.trim())return 'Informe o local ou link.';if(d.slots.some(s=>!s.start))return 'Preencha todos os horários.';
+    if(tmin(d.slots.reduce((m,s)=>s.start>m?s.start:m,'00:00'))+d.dur>1440)return 'O horário ultrapassa a meia-noite.';
+    const e=overlap(u.id,d.slots,d.dur,d.id);if(e)return e;
+    const t=now(),slots=d.slots.map(s=>({id:s.id||nid(),day:s.day,start:s.start}));
+    if(d.id){const o=myOffer(d.id);if(!o)return 'Oferta não encontrada.';
+      const keep=slots.map(s=>s.id+'|'+s.day+'|'+s.start);
+      db.requests.filter(r=>r.offerId===o.id&&ACT.includes(r.status)).forEach(r=>{const s=o.slots.find(x=>x.id===r.slotId);
+        if(!s||!keep.includes(s.id+'|'+s.day+'|'+s.start)||o.dur!==d.dur){setSt(r,'cancelada','horário alterado pelo monitor');notify(r.studentId,`Sua solicitação de ${r.subject} (${fD(r.date)}) foi cancelada: horário alterado.`)}
+        else{r.place=d.place;r.format=d.format}});
+      Object.assign(o,{subjectId:d.subjectId,desc:d.desc.trim(),slots,dur:d.dur,format:d.format,place:d.place.trim(),max:d.max,notes:d.notes.trim(),updatedAt:t})}
+    else db.offers.push({id:nid(),monitorId:u.id,subjectId:d.subjectId,desc:d.desc.trim(),slots,dur:d.dur,format:d.format,place:d.place.trim(),max:d.max,notes:d.notes.trim(),active:true,createdAt:t,updatedAt:t});
+    S.draft=null;toast('Oferta salva!');go('offers')},
+  profile:f=>{const u=me(),name=val(f,'name'),turma=val(f,'turma'),r=roles(f);
+    if(name.length<3)return 'Informe o nome.';if(!turma)return 'Informe a turma.';if(!r.length)return 'Escolha ao menos um perfil.';
+    if(f.pw.value&&f.pw.value.length<6)return 'A senha deve ter ao menos 6 caracteres.';
+    if(has(u,'monitor')&&!r.includes('monitor')&&db.offers.some(o=>o.monitorId===u.id&&o.active))return 'Pause suas ofertas antes de deixar de ser monitor.';
+    Object.assign(u,{name,turma,roles:r,updatedAt:now()});if(f.pw.value)u.pw=f.pw.value;toast('Perfil atualizado.');render()},
+  subject:f=>{const n=val(f,'name');if(n.length<2)return 'Informe o nome da matéria.';
+    if(db.subjects.some(s=>norm(s.name)===norm(n)))return 'Matéria já existe.';db.subjects.push({id:nid(),name:n,area:f.area.value});toast('Matéria adicionada.');render()}
+};
+
+/* ========== EVENTOS ========== */
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled)return;e.preventDefault();A[b.dataset.a]?.(b.dataset)});
+document.addEventListener('submit',e=>{const f=e.target.closest('form[data-f]');if(!f)return;e.preventDefault();const m=F[f.dataset.f]?.(f);if(typeof m==='string')ferr(f,m)});
+function live(e){const t=e.target,k=t.dataset?.live;if(!k)return;
+  if(k==='cat'){S.f[t.name]=t.type==='checkbox'?t.checked:t.value;$('#results').innerHTML=results()}
+  if(k==='usr'){S.uq=t.value;$('#ulist').innerHTML=usersTable()}}
+document.addEventListener('input',live);document.addEventListener('change',live);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&S.modal){S.modal=null;render()}});
+addEventListener('storage',e=>{if(e.key===KEY){try{db=JSON.parse(e.newValue)}catch(_){}render()}});
+
+/* ========== INICIALIZAÇÃO ========== */
+try{db=JSON.parse(localStorage.getItem(KEY))}catch(e){db=null}
+if(!db||!db.users)seed();
+render();
+</script>
+<script src="https://accounts.google.com/gsi/client" async defer onload="mountG()" onerror="mountG.failed=1;mountG()"></script>
+</body>
+</html>
